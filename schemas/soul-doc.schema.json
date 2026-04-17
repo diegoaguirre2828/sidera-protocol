@@ -1,0 +1,175 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/diegoaguirre2828/sidera-protocol/schemas/soul-doc.schema.json",
+  "title": "Sidera Soul Document v1",
+  "type": "object",
+  "required": [
+    "version",
+    "generatedAt",
+    "updatedAt",
+    "owner",
+    "voice",
+    "vocabulary",
+    "projects",
+    "commitments",
+    "magicMoments",
+    "antiPatterns",
+    "packPreferences",
+    "sources",
+    "notes"
+  ],
+  "properties": {
+    "version": { "const": 1 },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "updatedAt": { "type": "string", "format": "date-time" },
+    "owner": {
+      "type": "object",
+      "required": ["handle"],
+      "properties": {
+        "handle": { "type": "string", "minLength": 1 },
+        "displayName": { "type": "string" },
+        "locale": { "type": "string" },
+        "timezone": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "voice": {
+      "type": "object",
+      "required": ["samples", "registerTags"],
+      "properties": {
+        "samples": { "type": "array", "items": { "type": "string" } },
+        "registerTags": { "type": "array", "items": { "type": "string" } },
+        "cadence": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "vocabulary": {
+      "type": "object",
+      "required": ["phrases", "whistles"],
+      "properties": {
+        "phrases": { "type": "array", "items": { "type": "string" } },
+        "whistles": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["phrase", "meaning"],
+            "properties": {
+              "phrase": { "type": "string" },
+              "meaning": { "type": "string" },
+              "examples": { "type": "array", "items": { "type": "string" } }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "projects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name"],
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "soul": { "type": "string" },
+          "status": { "enum": ["active", "paused", "shipped", "archived"] },
+          "startedAt": { "type": "string" },
+          "notes": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "commitments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["statement"],
+        "properties": {
+          "statement": { "type": "string" },
+          "reason": { "type": "string" },
+          "source": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "magicMoments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["description"],
+        "properties": {
+          "description": { "type": "string" },
+          "context": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "antiPatterns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["description"],
+        "properties": {
+          "description": { "type": "string" },
+          "reason": { "type": "string" },
+          "source": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "packPreferences": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["role", "preferredModels"],
+        "properties": {
+          "role": { "enum": ["herder", "guardian", "driver", "other"] },
+          "preferredModels": { "type": "array", "items": { "type": "string" } },
+          "notes": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "kind", "ingestedAt", "ref"],
+        "properties": {
+          "id": { "type": "string" },
+          "kind": {
+            "enum": [
+              "memory-files",
+              "chatgpt-export",
+              "claude-export",
+              "gemini-export",
+              "cursor-export",
+              "git-commits",
+              "voice-memo",
+              "manual-entry",
+              "session-capture"
+            ]
+          },
+          "ingestedAt": { "type": "string", "format": "date-time" },
+          "ref": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "createdAt", "body"],
+        "properties": {
+          "id": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "body": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

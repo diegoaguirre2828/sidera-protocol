@@ -1,0 +1,88 @@
+{
+  "version": 1,
+  "generatedAt": "2026-04-17T00:00:00.000Z",
+  "updatedAt": "2026-04-17T00:00:00.000Z",
+  "owner": {
+    "handle": "example",
+    "displayName": "Example Shepherd",
+    "locale": "en-US",
+    "timezone": "America/Los_Angeles"
+  },
+  "voice": {
+    "samples": [
+      "just ship it, we can always iterate",
+      "i don't want a phased rollout, build the whole thing"
+    ],
+    "registerTags": ["terse", "direct"],
+    "cadence": "short bursts"
+  },
+  "vocabulary": {
+    "phrases": ["ship it", "lock it", "all in"],
+    "whistles": [
+      {
+        "phrase": "sync",
+        "meaning": "Re-read memory and pick up where we left off.",
+        "examples": ["sync"]
+      },
+      {
+        "phrase": "ship it",
+        "meaning": "Execute end-to-end without checking back mid-build.",
+        "examples": ["ship it", "lets ship"]
+      }
+    ]
+  },
+  "projects": [
+    {
+      "id": "example-project",
+      "name": "Example Project",
+      "soul": "A placeholder project demonstrating the schema.",
+      "status": "active"
+    }
+  ],
+  "commitments": [
+    {
+      "statement": "Never skip writing tests for destructive operations.",
+      "reason": "Prior incident — deleted a prod row and had no rollback.",
+      "source": "team-retro-2025-11"
+    }
+  ],
+  "magicMoments": [
+    {
+      "description": "First successful round-trip migration with zero downtime.",
+      "context": "Proved the dual-write strategy works."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "description": "Large PRs that bundle unrelated changes.",
+      "reason": "Review becomes impossible; bugs hide in the diff noise."
+    }
+  ],
+  "packPreferences": [
+    {
+      "role": "herder",
+      "preferredModels": ["claude-opus-4-7"],
+      "notes": "For design work and deep code review."
+    },
+    {
+      "role": "driver",
+      "preferredModels": ["claude-haiku-4-5"],
+      "notes": "For quick code transforms and summaries."
+    }
+  ],
+  "sources": [
+    {
+      "id": "manual-example",
+      "kind": "manual-entry",
+      "ingestedAt": "2026-04-17T00:00:00.000Z",
+      "ref": "hand-written example"
+    }
+  ],
+  "notes": [
+    {
+      "id": "readme-note",
+      "createdAt": "2026-04-17T00:00:00.000Z",
+      "body": "This is a minimal example. See SPEC.md for the full schema."
+    }
+  ]
+}

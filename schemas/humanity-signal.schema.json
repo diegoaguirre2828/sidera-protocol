@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/diegoaguirre2828/sidera-protocol/schemas/humanity-signal.schema.json",
+  "title": "Humanity Signal Event v1",
+  "type": "object",
+  "required": ["version", "id", "emittedAt", "project", "sessionId", "kind", "payload"],
+  "properties": {
+    "version": { "const": 1 },
+    "id": { "type": "string" },
+    "emittedAt": { "type": "string", "format": "date-time" },
+    "project": { "type": "string" },
+    "sessionId": { "type": "string" },
+    "kind": {
+      "type": "string",
+      "description": "Open-ended. Known kinds listed in SPEC.md. Unknown kinds MUST be stored, not dropped."
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "consent": {
+      "type": "object",
+      "required": ["appliesTo"],
+      "properties": {
+        "appliesTo": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "voice",
+              "vocabulary",
+              "projects",
+              "commitments",
+              "magicMoments",
+              "antiPatterns",
+              "packPreferences"
+            ]
+          }
+        },
+        "expiresAt": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
