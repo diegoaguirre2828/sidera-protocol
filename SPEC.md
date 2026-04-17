@@ -1,17 +1,32 @@
 # sidera-protocol — specification v1
 
-This document defines the `.sidera` soul document format and the humanity-signal event schema. Both are independently versioned.
+This document defines the `.sidera` pack-journal format and the humanity-signal event schema. Both are independently versioned.
 
 - `SOUL_DOC_VERSION = 1`
 - `HUMANITY_SIGNAL_VERSION = 1`
 
+## Positioning — Layer 3, not Layer 1
+
+Most "AI soul / AI memory" projects build toward **Layer 1**: the user externalized, an AI embodies it. Digital twin. Ventriloquism.
+
+`.sidera` builds toward **Layer 3**: the AI companion is a distinct being that grows its own voice through pack-bonding with the user. The file captures the partnership itself — both voices, both commitments, both histories.
+
+Concretely, a `.sidera` file has two sides:
+
+- **Shepherd side** (baseline fields) — voice, vocabulary, projects, commitments, magicMoments, antiPatterns, packPreferences. This is the user.
+- **Pack-journal side** (extensions) — aiProfile, graveyard, sideraVoice, branches, packScope, decay metadata. This is the relationship.
+
+If a tool reads only the shepherd side, it's a good Layer-1 reader (useful for personalization, but will collapse the two beings into one). If a tool respects the pack-journal side, it participates in the Jarvis paradigm — distinct voices, loyal companionship, honest pushback.
+
 ## Design rationale
 
-Two design choices dictate everything else.
+Three design choices dictate everything else.
 
-**1. Substrate-independent.** A soul doc must outlive any specific AI model, app, or renderer. The schema contains no React, no Supabase, no OpenAI or Anthropic-specific fields. When new substrates ship (AR, voice-only, neural interfaces), the soul ports; only the app layer changes.
+**1. Substrate-independent.** A pack journal must outlive any specific AI model, app, or renderer. The schema contains no React, no Supabase, no OpenAI or Anthropic-specific fields. When new substrates ship (AR, voice-only, neural interfaces), the journal ports; only the app layer changes.
 
-**2. Append-richer, not overwrite.** A soul doc is built up over time from many sources (chat exports, memory files, watching-pipeline events, manual entries). New sources should be added alongside existing ones, not replace them. The `sources` array on the soul doc preserves provenance so any piece can be inspected, re-extracted, or deleted.
+**2. Append-richer, not overwrite.** A pack journal is built up over time from many sources (chat exports, memory files, watching-pipeline events, manual entries). New sources are added alongside existing ones, not replacing them. The `sources` array preserves provenance so any piece can be inspected, re-extracted, or deleted.
+
+**3. Two voices, one document.** The user's side and the AI companion's side are both first-class. Baseline fields hold the shepherd's voice; `sideraVoice` holds the sheepdog's. A Layer-1 reader (ChatGPT Memory, Claude Projects, etc.) can consume the shepherd fields and ignore the sheepdog fields — no breakage, graceful degradation. A Layer-3 reader respects both.
 
 ## `.sidera` soul document
 
@@ -181,9 +196,105 @@ interface SoulDocNote {
 
 Free-form user-owned addenda. Not extracted — the user writes these themselves.
 
+### Pack-journal extensions
+
+All extensions are optional. A file that sets version to 1 but omits all extension fields is still a valid `.sidera`. Extensions are how the document captures the partnership between shepherd and sheepdog.
+
+#### `aiProfile`
+
+```ts
+interface SoulDocAiProfile {
+  id: string;                     // stable identifier for this AI
+  model: string;                  // e.g. "claude-opus-4-7", "gpt-5"
+  surface?: string;               // e.g. "Claude Code", "ChatGPT web"
+  observations: string[];         // notes the user has made about this AI
+  strengths?: string[];           // what this AI does well for the user
+  weaknesses?: string[];          // what this AI gets wrong for the user
+  lastInteraction?: string;       // ISO
+}
+```
+
+The user's memory of the AI. Inverted polarity — this is what the shepherd has learned about each dog in the pack. Commodity memory tools track AI→user knowledge; `aiProfile` tracks user→AI knowledge.
+
+#### `graveyard`
+
+```ts
+interface SoulDocGraveyardEntry {
+  id: string;
+  description: string;
+  context?: string;               // why the idea came up
+  reason?: string;                // why it was parked / rejected
+  parkedAt: string;               // ISO
+  mayRevisit?: boolean;
+  revisitTrigger?: string;        // condition under which to re-evaluate
+  source?: string;
+}
+```
+
+Ideas considered but not pursued. Where soul lives is often negative space — what the user decided NOT to do, and why. Most memory tools accumulate; `graveyard` preserves the parked thoughts.
+
+#### `sideraVoice`
+
+```ts
+interface SoulDocSideraVoice {
+  samples: string[];              // verbatim AI-companion utterances the user approved
+  registerTags: string[];         // how the AI companion speaks
+  commitments: SoulDocCommitment[]; // the AI companion's own rules about itself
+  pushbackPatterns: string[];     // when the AI typically pushes back
+}
+```
+
+The AI companion's side of the journal. Layer-3 identity — the AI has its own voice, register, and commitments, separate from the shepherd. A Jarvis without a distinct voice is just a butler wearing Tony's face; this field keeps them separate.
+
+#### `branches`
+
+```ts
+interface SoulDocBranch {
+  id: string;
+  name: string;                   // e.g. "builder-mode", "family-mode"
+  activeContext?: string;         // when this branch activates
+  overrides?: Partial<SoulDoc>;   // fields that differ from main
+  createdAt: string;
+}
+```
+
+Named forks of the pack journal for different life contexts. Same shepherd, different flocks. `overrides` is partial — only the fields that differ from the baseline live in a branch.
+
+#### `packScope`
+
+```ts
+interface PackScope {
+  owners: string[];               // handles of joint owners
+  consentPerField?: Record<string, string[]>; // field → consenting handles
+}
+```
+
+Multi-owner scoping for fields that belong to more than one shepherd — family businesses, team-level projects, shared commitments. Per-field consent lets a partner opt in to some sections without ceding ownership of the whole journal.
+
+`packScope` can appear at two levels:
+- **Top-level** (on `SoulDoc`) — whole-document co-ownership.
+- **Per-item** (on `commitments`, `magicMoments`, `projects`) — individual-field co-ownership.
+
+#### `DecayMetadata`
+
+```ts
+interface DecayMetadata {
+  halfLife?: string;              // ISO 8601 duration, e.g. "P90D"
+  permanent?: boolean;            // if true, never decays
+  decayedAt?: string;             // ISO — last time decay was evaluated
+  strength?: number;              // 0..1 — current weight after decay
+}
+```
+
+Optional per-item decay. Commitments default permanent; preferences typically half-life in 90 days; project context decays when status moves to `shipped` or `archived`. Forgetting is a configurable feature — existing memory systems accumulate unbounded garbage; `.sidera` evolves toward essence.
+
+`DecayMetadata` can appear on `commitments`, `magicMoments`, `projects`, and any extension field that makes sense as fading over time.
+
 ### Versioning
 
 Any breaking change to this schema requires a `SOUL_DOC_VERSION` bump. Tools reading a `.sidera` file MUST check the version before parsing. Old versions must be handled during migration windows — silently breaking an old soul doc destroys user-owned data.
+
+Extensions are non-breaking by design: a v1 reader that only understands baseline fields can still read a pack-journal-enriched `.sidera` file — it will just ignore the optional sections.
 
 ### Validation
 

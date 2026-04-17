@@ -169,6 +169,94 @@
         },
         "additionalProperties": false
       }
+    },
+    "aiProfile": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "model", "observations"],
+        "properties": {
+          "id": { "type": "string" },
+          "model": { "type": "string" },
+          "surface": { "type": "string" },
+          "observations": { "type": "array", "items": { "type": "string" } },
+          "strengths": { "type": "array", "items": { "type": "string" } },
+          "weaknesses": { "type": "array", "items": { "type": "string" } },
+          "lastInteraction": { "type": "string", "format": "date-time" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "graveyard": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "description", "parkedAt"],
+        "properties": {
+          "id": { "type": "string" },
+          "description": { "type": "string" },
+          "context": { "type": "string" },
+          "reason": { "type": "string" },
+          "parkedAt": { "type": "string", "format": "date-time" },
+          "mayRevisit": { "type": "boolean" },
+          "revisitTrigger": { "type": "string" },
+          "source": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "sideraVoice": {
+      "type": "object",
+      "required": ["samples", "registerTags", "commitments", "pushbackPatterns"],
+      "properties": {
+        "samples": { "type": "array", "items": { "type": "string" } },
+        "registerTags": { "type": "array", "items": { "type": "string" } },
+        "commitments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["statement"],
+            "properties": {
+              "statement": { "type": "string" },
+              "reason": { "type": "string" },
+              "source": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "pushbackPatterns": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "branches": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "createdAt"],
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "activeContext": { "type": "string" },
+          "overrides": { "type": "object" },
+          "createdAt": { "type": "string", "format": "date-time" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "packScope": {
+      "type": "object",
+      "required": ["owners"],
+      "properties": {
+        "owners": { "type": "array", "items": { "type": "string" } },
+        "consentPerField": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      },
+      "additionalProperties": false
     }
   },
   "additionalProperties": false
