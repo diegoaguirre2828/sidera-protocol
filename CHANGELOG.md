@@ -8,6 +8,24 @@ Schema `version` field (inside the `.sidera` file) is an integer and tracks brea
 
 ---
 
+## [1.1.0] — 2026-04-19 — Māori framework absorption
+
+### Added
+- **`manaLedger`** (optional top-level field) — accumulated weight of work shipped, commitments kept, soul-locks held, magic moments. Inspired by the Māori concept of `mana` (dignity + relational authority + earned-weight as one integrated concept). First `.sidera` field that tracks what the shepherd has *done*, not just who they are.
+- **`mauriState`** (optional top-level field) — rolling life-force signal (depleted / steady / thriving) inferred from humanity-signal density, stop-word frequency, drift patterns. Inspired by Māori `mauri` / `mauri ora`.
+- **SPEC.md §Lineage** — explicit attribution to AIHOA (Ako Aotearoa) + Te Mana Raraunga data-sovereignty tradition. Adoption is acknowledgment-with-attribution, not appropriation.
+
+### Why this ships now
+Wave-3 of the multilingual competitor scan (see `project_ai_landscape_wave3_maori_vocabulary_20260419.md` in the Sidera app memory) surfaced AIHOA — a Māori-framework tool that decomposes "soul" into four concepts (`wairua`, `mana`, `whanaungatanga`, `mauri ora`) where English collapses them to one. Sidera's schema gets richer by importing the sharper vocabulary.
+
+### Non-breaking commitment
+Schema `version` stays at `1`. Readers that don't understand `manaLedger` or `mauriState` MUST ignore them gracefully (no errors, no warnings). The 90-day no-breaking-change commitment from v1.0.0 holds.
+
+### Preview of future adoption
+`wairua` (identity across contexts) and `whanaungatanga` (relational fabric) are tracked as candidate future fields. They will ship when they prove load-bearing work beyond what existing baseline + pack-journal fields already carry. No guesswork additions.
+
+---
+
 ## [1.0.0] — 2026-04-19 — First public release
 
 ### Context

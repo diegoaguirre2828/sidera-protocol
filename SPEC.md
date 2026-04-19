@@ -1,9 +1,10 @@
-# sidera-protocol — specification v1
+# sidera-protocol — specification v1.1
 
 This document defines the `.sidera` pack-journal format and the humanity-signal event schema. Both are independently versioned.
 
-- `SOUL_DOC_VERSION = 1`
+- `SOUL_DOC_VERSION = 1` (stable baseline — last breaking change: never)
 - `HUMANITY_SIGNAL_VERSION = 1`
+- Spec revision **v1.1** (2026-04-19) — adds optional `manaLedger` and `mauriState` fields. Additive, non-breaking. Readers that don't know these fields MUST ignore them gracefully.
 
 ## Positioning — Layer 3, not Layer 1
 
@@ -400,6 +401,22 @@ A tool claims conformance to sidera-protocol v1 if it:
 
 Tools that want to call themselves *conformant writers* should additionally pass a round-trip test (write then read, structural equality) — provided in `examples/`.
 
+## Lineage — attributing non-English frameworks
+
+A schema is as rich as the vocabulary it inherits. English flattens some concepts that other languages keep distinct; a pack journal built on English alone inherits that flattening.
+
+Spec revision v1.1 adopts two concepts from the **Māori framework as operationalized by AIHOA (Ako Aotearoa)** and the **Te Mana Raraunga data-sovereignty tradition**. The field names retain Māori terminology to keep the conceptual precision intact; the framework is cited rather than extracted.
+
+- **mana** — in Te Ao Māori, `mana` is dignity, relational authority, and weight-earned-through-action, held as one integrated concept. English has no single word that carries all three. Mapped to `.sidera` as `manaLedger` — a time-stamped record of work shipped, commitments kept, and soul-locks held, accumulating over time. This is the first `.sidera` field that tracks **what the shepherd has done**, not just who they are.
+
+- **mauri / mauri ora** — `mauri` is life-force vitality; `mauri ora` is wellbeing / thriving state. Distinct from identity (`wairua`) and from action-weight (`mana`). Mapped to `.sidera` as `mauriState` — a rolling inference of thriving / steady / depleted, derived from humanity-signal density, stop-word frequency, drift patterns, and other wellbeing indicators.
+
+Both fields are optional. Sidera's adoption is acknowledgment-with-attribution, not appropriation; readers are directed to consult the source framework before building dependent features. Tools implementing these fields should cite the Māori origin in their own documentation.
+
+Future spec revisions may adopt **wairua** (identity across contexts) and **whanaungatanga** (relational fabric through kinship) as named concepts, once the current fields prove their load-bearing work.
+
 ## Change log
 
-- **v1** — initial release (2026-04-17). Extracted from Sidera's Being layer (`src/lib/sidera/being/`).
+- **v1.1** — 2026-04-19. Added optional `manaLedger` and `mauriState` fields, crediting Māori framework (see §Lineage). Non-breaking — existing `version: 1` files remain valid; the new fields are ignorable by readers that don't understand them.
+- **v1.0** — 2026-04-19. First public release. See `CHANGELOG.md` for context.
+- **v1-draft** — initial release (2026-04-17). Extracted from Sidera's Being layer (`src/lib/sidera/being/`).

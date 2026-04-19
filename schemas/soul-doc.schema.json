@@ -257,6 +257,66 @@
         }
       },
       "additionalProperties": false
+    },
+    "manaLedger": {
+      "description": "Accumulated weight of work — ships, held commitments, soul-locks, magic moments. Inspired by the Māori concept of mana (dignity + relational authority earned through action). See SPEC.md §Lineage.",
+      "type": "object",
+      "required": ["cumulative", "events"],
+      "properties": {
+        "cumulative": { "type": "number" },
+        "decayHalfLife": { "type": "string" },
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "at", "kind", "weight"],
+            "properties": {
+              "id": { "type": "string" },
+              "at": { "type": "string", "format": "date-time" },
+              "kind": {
+                "enum": [
+                  "ship",
+                  "commit-kept",
+                  "soul-lock",
+                  "magic-moment",
+                  "anti-pattern-rejected",
+                  "graveyard-decision",
+                  "manual"
+                ]
+              },
+              "weight": { "type": "number" },
+              "source": { "type": "string" },
+              "ref": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "mauriState": {
+      "description": "Rolling life-force signal — thriving / steady / depleted. Inferred from humanity-signal density, stop-word frequency, drift patterns. Inspired by the Māori concept of mauri / mauri ora (life-force vitality). See SPEC.md §Lineage.",
+      "type": "object",
+      "required": ["current", "updatedAt"],
+      "properties": {
+        "current": { "enum": ["depleted", "steady", "thriving"] },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "signals": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["at", "indicator", "value"],
+            "properties": {
+              "at": { "type": "string", "format": "date-time" },
+              "indicator": { "type": "string" },
+              "value": {}
+            },
+            "additionalProperties": false
+          }
+        },
+        "notes": { "type": "string" }
+      },
+      "additionalProperties": false
     }
   },
   "additionalProperties": false
