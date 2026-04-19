@@ -8,6 +8,26 @@ Schema `version` field (inside the `.sidera` file) is an integer and tracks brea
 
 ---
 
+## [1.1.2] — 2026-04-19 — `mauriState` marked RESERVED
+
+### Changed
+- `mauriState` field stays in the schema for forward-compatibility but is now documented as RESERVED / not recommended for implementation.
+- Reason: inferring a user's wellbeing state (depleted / steady / thriving) without their explicit per-event opt-in is structurally close to surveillance. Any action downstream of "depleted" risks paternalism (uninvited rest-suggestions, etc.).
+- Unlock conditions declared in SPEC §Lineage/mauri:
+  1. Per-turn user-initiated "check in on my mauri" handshake (never passive background inference), AND
+  2. User-defined `mauriDisposition` declaring what Sidera is / is not permitted to do with the value.
+- Until both exist, tools should leave `mauriState` absent.
+
+### Why this ships
+Triggered by a direct owner pushback (2026-04-19) on the v1.1.0 introduction of `mauriState`. The owner's standing rule: *don't tell me to rest / pause / sleep; I run my own schedule.* A field whose only job is producing "you're depleted right now" is architecturally aligned against that rule. Deprecating properly (via RESERVED note) is preferable to removing (which would be breaking) or leaving it active (which would invite non-conforming implementations).
+
+`manaLedger` remains fully supported — it is a record, not a judgment, and earned its place in v1.1.0.
+
+### No schema-shape change
+`version: 1` files remain valid. Any existing implementation that was populating `mauriState` is not broken; it is just out of step with recommended practice.
+
+---
+
 ## [1.1.1] — 2026-04-19 — Academic lineage citations
 
 ### Added
