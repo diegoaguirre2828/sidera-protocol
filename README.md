@@ -1,5 +1,7 @@
 # sidera-protocol
 
+**Translations:** [中文 (zh-CN)](./README.zh-CN.md) · [日本語 (ja)](./README.ja.md) · [한국어 (ko)](./README.ko.md) · [Deutsch (de)](./README.de.md) · [Français (fr)](./README.fr.md) · [Español (es)](./README.es.md) · [Português (pt-BR)](./README.pt-BR.md) · [Русский (ru)](./README.ru.md) · [العربية (ar)](./README.ar.md) · [हिन्दी (hi)](./README.hi.md)
+
 **A pack journal — not a soul file.**
 
 Two beings. One document. The `.sidera` format captures the partnership between a user (shepherd) and their AI companion (sheepdog) — both voices, both commitments, both histories, in one versioned record.
