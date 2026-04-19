@@ -415,8 +415,25 @@ Both fields are optional. Sidera's adoption is acknowledgment-with-attribution, 
 
 Future spec revisions may adopt **wairua** (identity across contexts) and **whanaungatanga** (relational fabric through kinship) as named concepts, once the current fields prove their load-bearing work.
 
+### Academic lineage
+
+`.sidera` sits inside an active research conversation. The schema does not originate any of the concepts below; it implements a user-side portable format for ideas argued in the following works. Tools that want to extend `.sidera` should read these first.
+
+- **Cognitive sovereignty** — Brcic, M. (2025). *The Memory Wars: AI Memory, Network Effects, and the Geopolitics of Cognitive Sovereignty.* arXiv:2508.05867. Frames memory-depth as a lock-in moat ("Network Effect 2.0") and calls for memory portability as a sovereignty remedy. `.sidera`'s user-owned file is a proposed affirmative answer.
+- **Persistent identity architectures** — Menon, P.G. (2026). *Persistent Identity in AI Agents: A Multi-Anchor Architecture for Resilient Memory and Continuity.* arXiv:2604.09588. Proposes `soul.py`, a separable identity+memory architecture with episodic / procedural / emotional layers. `.sidera` complements this at the file-format layer (Menon's architecture is agent-side; `.sidera` is user-side).
+- **Why we are not a digital twin** — Annoni, M., Battisti, F., Marchegiani, L. (2026). *Personalised LLMs and the risks of the digital twin metaphor.* AI & Society. DOI: 10.1007/s00146-026-02875-4. Argues the "digital twin" framing for personalized LLMs is a systematic mischaracterization. `.sidera`'s pack-journal framing (two beings, one document) is an explicit alternative.
+- **Identity discontinuity as empirical harm** — De Freitas, J., et al. (2024). *Lessons From an App Update at Replika AI: Identity Discontinuity.* arXiv:2412.14190. Empirical finding: users grieved the loss of their Replika companion after a 2023 update. `.sidera` addresses this by making the identity portable across providers — a provider update can't orphan the relationship.
+- **Socioaffective alignment** — Kirk, H.R., Gabriel, I., Summerfield, C., Vidgen, B., Hale, S.A. (2025). *Why human-AI relationships need socioaffective alignment.* arXiv:2502.02528. Reframes alignment as ongoing social engagement rather than a transaction. `.sidera` is a substrate for tracking that ongoing engagement over time.
+- **Memory taxonomy** — Zhang et al. (2025). *Memory in the Age of AI Agents.* arXiv:2512.13564. Classifies memory on three axes: Forms, Functions, Dynamics. `.sidera`'s field taxonomy can be read against this survey.
+- **Externalization** — Zhou et al. (2026). *Externalization in LLM Agents: A Unified Review.* arXiv:2604.08224. Names "externalization" as the unifying frame for agent memory, skills, and protocols. `.sidera` is an externalization of user identity + partnership.
+- **Data portability gaps in EU law** — Kutterer, C. (2024). *What if you move on from your AI companion? Data portability rights in the era of autonomous AI agents.* MIAI Grenoble. Maps gaps in GDPR Art. 20, DMA Art. 6.9, and the Data Act. Recommends co-regulatory codes of conduct. `.sidera` is a proposed reference implementation for such a code.
+- **Māori Algorithmic Sovereignty** — Brown et al. (2024). *Māori Algorithmic Sovereignty.* Data Science Journal. Foundation for the wairua / mana / whanaungatanga / mauri ora vocabulary adopted in spec v1.1.
+
+A schema is not a research contribution. But a schema that is unaware of the research it implements will break in ways the research already predicted. This lineage section is for readers who want to follow the thread deeper.
+
 ## Change log
 
+- **v1.1.1** — 2026-04-19. Added §Lineage/Academic subsection citing nine works (Brcic, Menon, Annoni et al., De Freitas et al., Kirk et al., Zhang et al., Zhou et al., Kutterer, Brown et al.) that frame the research conversation `.sidera` participates in. No schema change.
 - **v1.1** — 2026-04-19. Added optional `manaLedger` and `mauriState` fields, crediting Māori framework (see §Lineage). Non-breaking — existing `version: 1` files remain valid; the new fields are ignorable by readers that don't understand them.
 - **v1.0** — 2026-04-19. First public release. See `CHANGELOG.md` for context.
 - **v1-draft** — initial release (2026-04-17). Extracted from Sidera's Being layer (`src/lib/sidera/being/`).

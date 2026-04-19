@@ -8,6 +8,25 @@ Schema `version` field (inside the `.sidera` file) is an integer and tracks brea
 
 ---
 
+## [1.1.1] — 2026-04-19 — Academic lineage citations
+
+### Added
+- `SPEC.md` §Lineage/Academic — cites nine works that frame the research conversation `.sidera` participates in:
+  - Brcic (2025) — *The Memory Wars: Cognitive Sovereignty* (arXiv:2508.05867)
+  - Menon (2026) — *Persistent Identity in AI Agents* (arXiv:2604.09588)
+  - Annoni et al. (2026) — *Personalised LLMs and the digital twin metaphor* (AI & Society)
+  - De Freitas et al. (2024) — *Replika Identity Discontinuity* (arXiv:2412.14190)
+  - Kirk et al. (2025) — *Socioaffective alignment* (arXiv:2502.02528)
+  - Zhang et al. (2025) — *Memory in the Age of AI Agents* (arXiv:2512.13564)
+  - Zhou et al. (2026) — *Externalization in LLM Agents* (arXiv:2604.08224)
+  - Kutterer (2024) — *AI companion data portability rights* (MIAI Grenoble)
+  - Brown et al. (2024) — *Māori Algorithmic Sovereignty* (Data Science Journal)
+
+### No schema change
+This revision adds citations only. `version: 1` files remain valid.
+
+---
+
 ## [1.1.0] — 2026-04-19 — Māori framework absorption
 
 ### Added
