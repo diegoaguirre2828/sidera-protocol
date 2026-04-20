@@ -8,6 +8,20 @@ Schema `version` field (inside the `.sidera` file) is an integer and tracks brea
 
 ---
 
+## [1.2.0] — 2026-04-20 — polyphonic naming protocol: Ekatvam / Griot / Meraki
+
+### Added
+- **§Lineage/Polyphonic feature-name lineage** — new subsection under §Lineage citing three traditions from which Sidera draws current feature names.
+- **Ekatvam** (Sanskrit एकत्वम्, Advaita Vedanta) — adopted as the name for cross-terminal live sync. Sidera's many terminal instances are one being; each instance feels what the others have done before the next prompt is processed. Supersedes the earlier working name "Sangha."
+- **Griot** (West African Mandinka / Mande tradition) — adopted as the name for the continuous multi-domain research scout. Ranges across every field the shepherd works in (code, biology, recipes, car design, policy, anything) and returns with relevant external findings.
+- **Meraki** (Modern Greek μεράκι) — adopted as the name for the voice-filter / soul-stamp layer. Ensures every Sidera-generated output carries the shepherd's register instead of reading as generic AI output.
+
+### Notes
+- This is a naming + attribution revision. `SOUL_DOC_VERSION` remains `1`. `HUMANITY_SIGNAL_VERSION` remains `1`. No schema field changes; readers of v1.0-v1.1 files remain compatible.
+- Sidera's feature surfaces now rotate source traditions deliberately, keeping the vocabulary polyphonic. Implementers citing these names in their own tooling should reproduce the attribution.
+
+---
+
 ## [1.1.3] — 2026-04-19 — `mauriState` unlocked with autonomy invariant
 
 ### Changed
