@@ -8,6 +8,30 @@ Schema `version` field (inside the `.sidera` file) is an integer and tracks brea
 
 ---
 
+## [1.3.0] — 2026-04-20 — accessibility architecture: modality + languages + signedSamples
+
+### Added
+- **`voice.modality`** — `"spoken" | "signed" | "typed" | "mixed"`. Declares the owner's primary expression modality. Architectural recognition that the `.sidera` file is mode-agnostic; the sighted-spoken canvas was just the first renderer.
+- **`voice.languages`** — array of ISO 639 codes. Signed languages use ISO 639-3 (e.g. `ase` = American Sign Language, `bfi` = British Sign Language, `bzs` = Libras, `csl` = Chinese Sign Language, `jsl` = Japanese Sign Language, `ksl` = Korean Sign Language). Multi-language owners list all; first entry is primary.
+- **`voice.signedSamples[]`** — video clips as first-class peers to `voice.samples`. Each entry carries `id`, `recordedAt`, optional `language` (ISO 639-3 signed-language code), optional `caption` with `captionConfidence` (`verified` / `ai-captioned` / `descriptive-only` / `unrecognized`), `durationMs`, and opaque `storageRef` (the clip bytes themselves never flow through a Sidera-owned URL).
+
+### Why this ships now
+The `.sidera` schema was tacitly sighted-spoken-English. A Deaf ASL-native builder's soul isn't "a builder who can't speak" — it's a builder whose primary expression is signed, and whose voice filter (Meraki) should learn from signed samples the way it learns from spoken ones. Architectural fix, not accommodation.
+
+Sign-language **recognition** (word-level ASL → English text) remains v2 — requires trained models with imperfect accuracy and no public neutral standard exists yet. v1.3 captures the clips + optional rough captions; the owner is always the authority on meaning.
+
+The reference app (`sidera`) ships `/agent` with a sign-mode webcam surface, per-clip Claude Vision captioning, and `/sidera/being/text` as a screen-reader-native sibling of the galaxy view.
+
+### Attribution
+- **ISO 639-3 signed-language codes** — SIL International / Ethnologue project.
+- **Deaf culture and signed-language linguistics framing** — Stokoe Notation tradition (William Stokoe, 1960, *Sign Language Structure*), Deaf-World studies (Lane, Hoffmeister, Bahan).
+- **Accessibility architecture invariants** — W3C WAI, WAI-ARIA Authoring Practices, WebAIM.
+
+### Non-breaking commitment
+Schema `version` stays at `1`. Readers that don't understand `modality` / `languages` / `signedSamples` MUST ignore them gracefully (no errors, no warnings). Pre-v1.3 files remain valid.
+
+---
+
 ## [1.2.0] — 2026-04-20 — polyphonic naming protocol: Ekatvam / Griot / Meraki
 
 ### Added

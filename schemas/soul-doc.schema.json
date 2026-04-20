@@ -37,9 +37,51 @@
       "type": "object",
       "required": ["samples", "registerTags"],
       "properties": {
-        "samples": { "type": "array", "items": { "type": "string" } },
+        "samples": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Verbatim spoken/typed voice samples."
+        },
         "registerTags": { "type": "array", "items": { "type": "string" } },
-        "cadence": { "type": "string" }
+        "cadence": { "type": "string" },
+        "modality": {
+          "description": "Primary expression modality. Added v1.3.0 — accessibility architecture, not bolt-on.",
+          "enum": ["spoken", "signed", "typed", "mixed"]
+        },
+        "languages": {
+          "description": "ISO 639 codes of languages the owner expresses in. Signed languages use ISO 639-3 (e.g. 'ase' = ASL, 'bfi' = BSL, 'bzs' = Libras, 'csl' = CSL, 'jsl' = JSL, 'ksl' = KSL). Multi-language owners list all; first entry is primary. Added v1.3.0.",
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "signedSamples": {
+          "description": "Signed-language video samples — first-class peers to text voice.samples, not 'accommodation'. Added v1.3.0.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "recordedAt"],
+            "properties": {
+              "id": { "type": "string" },
+              "language": {
+                "description": "ISO 639-3 code of the signed language (e.g. 'ase').",
+                "type": "string"
+              },
+              "caption": {
+                "description": "Optional human or AI-generated caption. The owner is the authority — AI captions are hints, not ground truth.",
+                "type": "string"
+              },
+              "captionConfidence": {
+                "enum": ["verified", "ai-captioned", "descriptive-only", "unrecognized"]
+              },
+              "durationMs": { "type": "number" },
+              "recordedAt": { "type": "string", "format": "date-time" },
+              "storageRef": {
+                "description": "Opaque ref to where the clip lives. Local file path, IndexedDB key, or user-controlled object storage. NEVER a Sidera-owned URL. Clip bytes never leave the owner's control.",
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
       },
       "additionalProperties": false
     },

@@ -452,10 +452,22 @@ These three names are sourced from three distinct traditions to keep Sidera's vo
 - **Data portability gaps in EU law** — Kutterer, C. (2024). *What if you move on from your AI companion? Data portability rights in the era of autonomous AI agents.* MIAI Grenoble. Maps gaps in GDPR Art. 20, DMA Art. 6.9, and the Data Act. Recommends co-regulatory codes of conduct. `.sidera` is a proposed reference implementation for such a code.
 - **Māori Algorithmic Sovereignty** — Brown et al. (2024). *Māori Algorithmic Sovereignty.* Data Science Journal. Foundation for the wairua / mana / whanaungatanga / mauri ora vocabulary adopted in spec v1.1.
 
+### Lineage/Accessibility (v1.3.0)
+
+The `.sidera` schema before v1.3 was tacitly sighted-spoken-English. That framing erased Deaf ASL-native builders, blind voice-first builders, signed-primary multilingual builders, and anyone whose expression is primarily typed. v1.3.0 corrects that at the schema layer — not as accommodation bolt-ons, but as architectural recognition that the `.sidera` file is mode-agnostic, and the sighted-spoken canvas was just the first renderer.
+
+- **Stokoe Notation** — Stokoe, W.C. (1960). *Sign Language Structure: An Outline of the Visual Communication Systems of the American Deaf.* Studies in Linguistics Occasional Papers 8. The founding work establishing signed languages (ASL specifically) as full linguistic systems with their own grammar, morphology, and phonology — not "gesture" or "pantomime." Sidera's `voice.signedSamples[]` exist because signed languages are languages.
+- **Deaf-World studies** — Lane, H., Hoffmeister, R., Bahan, B. (1996). *A Journey into the Deaf-World.* DawnSignPress. The canonical text articulating Deaf culture as a linguistic-minority community rather than a disability category. Shapes `voice.modality: "signed"` as a first-class declaration, not an alternative path.
+- **ISO 639-3 signed-language codes** — SIL International / Ethnologue. Registry of three-letter codes for the world's signed languages (`ase` American, `bfi` British, `bzs` Brazilian Libras, `csl` Chinese, `jsl` Japanese, `ksl` Korean, `gsg` German, `fsl` French, `ins` Indian, etc.). `voice.languages[]` uses this registry.
+- **W3C WAI / WAI-ARIA** — Web Accessibility Initiative and Accessible Rich Internet Applications specifications. Reference app implementations (semantic HTML fallbacks, ARIA live regions, keyboard navigation, prefers-reduced-motion honoring) are held to these standards.
+
+Implementations should treat signed-samples as first-class peers of text voice-samples — a Deaf builder's soul filter (Meraki) learns from signed register the way a hearing builder's filter learns from spoken register. AI captioning of signed clips is a hint, not ground truth; the owner remains the linguistic authority on what their signed clip meant.
+
 A schema is not a research contribution. But a schema that is unaware of the research it implements will break in ways the research already predicted. This lineage section is for readers who want to follow the thread deeper.
 
 ## Change log
 
+- **v1.3.0** — 2026-04-20. Accessibility architecture. Added `voice.modality` (`spoken` / `signed` / `typed` / `mixed`), `voice.languages` (ISO 639-3 codes including signed-language codes), and `voice.signedSamples[]` (video clips as first-class peers to text voice-samples). Added §Lineage/Accessibility with Stokoe (1960), Lane-Hoffmeister-Bahan (1996), ISO 639-3, and W3C WAI citations. Non-breaking — `version: 1` files remain valid; readers that don't understand the new fields ignore them.
 - **v1.2.0** — 2026-04-20. Polyphonic naming protocol. Three lineage entries added (Ekatvam / Griot / Meraki) citing Sanskrit (Advaita Vedanta), West African Mandinka, and Modern Greek traditions. No schema field changes — this is a naming + attribution revision. Sidera's feature surfaces now rotate source traditions deliberately, keeping the vocabulary polyphonic and citing each adopted concept.
 - **v1.1.3** — 2026-04-19. `mauriState` unlocked with a hard autonomy invariant: the field is a mirror the user can look into, NOT a lever any tool can pull on the user's behalf. Spontaneous rest/pause/sleep suggestions based on mauri are explicitly disallowed; register-matching during user-initiated outputs is allowed. Supersedes v1.1.2's RESERVED status.
 - **v1.1.2** — 2026-04-19. Marked `mauriState` as RESERVED (superseded by v1.1.3).
