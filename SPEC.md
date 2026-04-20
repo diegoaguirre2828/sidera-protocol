@@ -409,13 +409,17 @@ Spec revision v1.1 adopts two concepts from the **Māori framework as operationa
 
 - **mana** — in Te Ao Māori, `mana` is dignity, relational authority, and weight-earned-through-action, held as one integrated concept. English has no single word that carries all three. Mapped to `.sidera` as `manaLedger` — a time-stamped record of work shipped, commitments kept, and soul-locks held, accumulating over time. This is the first `.sidera` field that tracks **what the shepherd has done**, not just who they are.
 
-- **mauri / mauri ora** — `mauri` is life-force vitality; `mauri ora` is wellbeing / thriving state. Distinct from identity (`wairua`) and from action-weight (`mana`). Mapped to `.sidera` as `mauriState` — a rolling inference of thriving / steady / depleted.
+- **mauri / mauri ora** — `mauri` is life-force vitality; `mauri ora` is wellbeing / thriving state. Distinct from identity (`wairua`) and from action-weight (`mana`). Mapped to `.sidera` as `mauriState` — a rolling inference of thriving / steady / depleted, derived from observable patterns (frustration-vocabulary frequency, magic-moment density, session cadence, register shifts).
 
-  > **⚠ RESERVED as of spec v1.1.2 (2026-04-19).** The schema field exists for forward-compatibility, but implementations are discouraged from populating it at this time. Reason: inference of a user's wellbeing state without their explicit per-event opt-in is structurally close to surveillance, and any action downstream of "depleted" risks paternalism (uninvited suggestions to rest, pause, etc.). Future revisions may unlock `mauriState` with:
-  > 1. A per-turn user-initiated "check in on my mauri" handshake (never passive background inference), AND
-  > 2. A user-defined `mauriDisposition` declaring what Sidera is / is not permitted to do with the value (e.g., "surface the gauge on request; never spontaneously suggest rest").
+  **mauriState is ACTIVE as of spec v1.1.3 (2026-04-19), with a single hard invariant:**
+  > **Sidera MUST NOT take unsolicited action based on mauriState.** The field is user-readable data, not a trigger for suggestions. Specifically:
+  > - ✅ A UI surface that shows the current value on the user's own screen is allowed.
+  > - ✅ Matching output register/tone to mauriState when the user has invoked an output path is allowed (e.g., gentler cadence during depletion when the user asked a question).
+  > - ❌ Spontaneous suggestions to rest, pause, sleep, or take a break are NOT allowed. The user runs their own schedule.
+  > - ❌ Using mauriState to second-guess or delay user requests is NOT allowed.
+  > - ❌ Sharing mauriState outside the user's own system without explicit per-value consent is NOT allowed.
   >
-  > Until that handshake exists, tools conforming to sidera-protocol should leave `mauriState` absent. Do not infer. Do not populate. Empty is correct.
+  > The invariant is a structural one: the field is a mirror the user can choose to look into, not a lever any tool can pull on the user's behalf. Implementations that violate the invariant should not claim conformance to this spec.
 
 Both fields are optional. Sidera's adoption is acknowledgment-with-attribution, not appropriation; readers are directed to consult the source framework before building dependent features. Tools implementing these fields should cite the Māori origin in their own documentation.
 
@@ -439,7 +443,8 @@ A schema is not a research contribution. But a schema that is unaware of the res
 
 ## Change log
 
-- **v1.1.2** — 2026-04-19. Marked `mauriState` as RESERVED. Field stays in schema for forward-compatibility, but implementers are discouraged from populating it. Inferring user wellbeing without explicit per-event opt-in is structurally close to surveillance. Unlock requires a named user-initiated handshake + a `mauriDisposition` declaration, neither of which exists yet.
+- **v1.1.3** — 2026-04-19. `mauriState` unlocked with a hard autonomy invariant: the field is a mirror the user can look into, NOT a lever any tool can pull on the user's behalf. Spontaneous rest/pause/sleep suggestions based on mauri are explicitly disallowed; register-matching during user-initiated outputs is allowed. Supersedes v1.1.2's RESERVED status.
+- **v1.1.2** — 2026-04-19. Marked `mauriState` as RESERVED (superseded by v1.1.3).
 - **v1.1.1** — 2026-04-19. Added §Lineage/Academic subsection citing nine works (Brcic, Menon, Annoni et al., De Freitas et al., Kirk et al., Zhang et al., Zhou et al., Kutterer, Brown et al.) that frame the research conversation `.sidera` participates in. No schema change.
 - **v1.1** — 2026-04-19. Added optional `manaLedger` and `mauriState` fields, crediting Māori framework (see §Lineage). Non-breaking — existing `version: 1` files remain valid; the new fields are ignorable by readers that don't understand them.
 - **v1.0** — 2026-04-19. First public release. See `CHANGELOG.md` for context.

@@ -8,7 +8,24 @@ Schema `version` field (inside the `.sidera` file) is an integer and tracks brea
 
 ---
 
-## [1.1.2] — 2026-04-19 — `mauriState` marked RESERVED
+## [1.1.3] — 2026-04-19 — `mauriState` unlocked with autonomy invariant
+
+### Changed
+- `mauriState` is ACTIVE again. The field is populated from observable patterns (frustration-vocabulary frequency, magic-moment density, session cadence, register shifts) rather than left empty.
+- A **hard autonomy invariant** is now specified in SPEC §Lineage/mauri:
+  - ✅ Allowed: user-readable UI surfaces of the current value on the user's own screen.
+  - ✅ Allowed: matching output register/tone to mauriState when the user has invoked an output path.
+  - ❌ Forbidden: spontaneous suggestions to rest / pause / sleep / take a break.
+  - ❌ Forbidden: using mauriState to second-guess or delay user requests.
+  - ❌ Forbidden: sharing mauriState outside the user's system without per-value consent.
+- Invariant framing: **the field is a mirror the user can choose to look into, not a lever any tool can pull on the user's behalf.**
+
+### Why this un-reserves
+The v1.1.2 RESERVED status was based on misreading a single-turn owner question ("why mauri?") as a rejection of the concept, when the question was actually asking for naming clarity. Correcting.
+
+The autonomy rule (owner: "don't tell me to rest/pause/sleep; I run my own schedule") stays fully in force — but it applies to *tool actions*, not to the *data field itself*. Mana is a record; mauri can be a state-mirror. Both are allowed as long as nothing triggers an unwanted action on the user's behalf.
+
+## [1.1.2] — 2026-04-19 — `mauriState` marked RESERVED (SUPERSEDED by v1.1.3)
 
 ### Changed
 - `mauriState` field stays in the schema for forward-compatibility but is now documented as RESERVED / not recommended for implementation.
